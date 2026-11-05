@@ -1,0 +1,8 @@
+{
+  "id": "helix",
+  "name": "Helix",
+  "source": "https://raw.githubusercontent.com/helix-editor/helix/master/helix-term/src/keymap/default.rs",
+  "license": "MPL-2.0",
+  "output": "data/default.toml",
+  "outputSha": "e31666abee2cb9c1868426bc7516d526f7796458d78a17f20c8430d11d80c8e9"
+}
