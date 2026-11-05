@@ -1,0 +1,86 @@
+name: Deploy to GitHub Pages
+
+# One-time setup: Settings > Pages > Source > GitHub Actions.
+# Deploys only from a signed annotated tag whose commit is on main.
+# Manual deploy: gh workflow run pages.yml --ref v1.2.3
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    needs: checks
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the tag
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Verify signed annotated tag on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_REF_TYPE}" != "tag" ]; then
+            echo "Deploy from a tag, not ${GITHUB_REF}."
+            exit 1
+          fi
+          tag="${GITHUB_REF_NAME}"
+          git fetch --force origin "refs/tags/${tag}:refs/tags/${tag}"
+          tag_object="$(git rev-parse "refs/tags/${tag}")"
+          if [ "$(git cat-file -t "${tag_object}")" != "tag" ]; then
+            echo "${tag} is not an annotated tag."
+            exit 1
+          fi
+          verified="$(gh api "repos/${GITHUB_REPOSITORY}/git/tags/${tag_object}" --jq '.verification.verified')"
+          if [ "${verified}" != "true" ]; then
+            echo "${tag} is not a verified signed tag."
+            exit 1
+          fi
+          commit="$(git rev-parse "refs/tags/${tag}^{commit}")"
+          git fetch origin main
+          if ! git merge-base --is-ancestor "${commit}" origin/main; then
+            echo "${tag} does not point to a commit on main."
+            exit 1
+          fi
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Stage runtime files
+        run: node tools/stage-site.mjs
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5

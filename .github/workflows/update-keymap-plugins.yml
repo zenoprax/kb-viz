@@ -1,0 +1,88 @@
+name: Update keymap plugin data
+
+# Discovers the keymap plugins present under plugins/keymaps and refreshes each
+# one from the URL in its source.json. With no keymap plugins the discovery step
+# yields an empty matrix and the update job is skipped.
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      plugins: ${{ steps.list.outputs.plugins }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: List keymap plugins
+        id: list
+        run: |
+          plugins=$(ls -1d plugins/keymaps/*/ 2>/dev/null \
+            | xargs -r -n1 basename | sort \
+            | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "plugins=${plugins:-[]}" >> "$GITHUB_OUTPUT"
+
+  update:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        plugin: ${{ fromJSON(needs.discover.outputs.plugins) }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Update ${{ matrix.plugin }} data
+        run: node tools/update-keymap-plugin.mjs ${{ matrix.plugin }}
+
+      - name: Repository checks
+        run: node tools/check.mjs
+
+      # Optional plugin-owned tests; skipped when tests/ is absent.
+      - name: Plugin tests
+        env:
+          PLUGIN: ${{ matrix.plugin }}
+        run: |
+          set -euo pipefail
+          if [ ! -d "plugins/keymaps/$PLUGIN/tests" ]; then
+            echo "No tests for $PLUGIN; skipping."
+            exit 0
+          fi
+          mapfile -t test_files < <(
+            find "plugins/keymaps/$PLUGIN/tests" -name '*.test.mjs' -print
+          )
+          if [ "${#test_files[@]}" -eq 0 ]; then
+            echo "No test files for $PLUGIN; skipping."
+            exit 0
+          fi
+          node --test "${test_files[@]}"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: Update ${{ matrix.plugin }} keymap plugin data
+          branch: update/${{ matrix.plugin }}
+          delete-branch: true
+          title: Update ${{ matrix.plugin }} keymap plugin data
+          body: |
+            This automated change refreshes the vendored data for the
+            `${{ matrix.plugin }}` keymap plugin.
+
+            Checks passed in this job, including the plugin's own tests when
+            present.
+            Review the data diff before merging; update pull requests never
+            merge automatically.
