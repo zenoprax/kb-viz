@@ -1,0 +1,39 @@
+/* Dark theme. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --font-body: Helvetica, Arial, sans-serif;
+
+  --paper: #1c1b17;
+  --plate: #14130f;
+  --field: #232119;
+  --ink: #e7e1d3;
+  --ink-2: #b5ae9e;
+  --ink-3: #8c8677;
+  --rule: #4a463c;
+  --rule-soft: #322f28;
+  --hover: #26241e;
+  --sel: #38342b;
+  --accent: #f07a55;
+  --focus: #7aa2e8;
+
+  --key-bound: #33312c;
+  --key-bound-border: #5a564d;
+  --key-mod-bound: #5b5950;
+  --key-mod-bound-border: #8b8577;
+  --key-mod-bound-ink: #f1ecdf;
+  --control-border: #6f6a5e;
+  --key-unbound: #24221d;
+  --key-unbound-border: #38352e;
+  --key-unbound-ink: #8a8478;
+  --key-bound-count: #a8a294;
+  --key-mod-bound-count: #e1dccf;
+
+  --accent-1: #d99a3f;
+  --accent-2: #5f97da;
+  --accent-3: #a98ad9;
+  --accent-4: #43b3a3;
+  --accent-5: #e07088;
+  --accent-6: #86b060;
+  --neutral: #a8a294;
+}

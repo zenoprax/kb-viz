@@ -1,0 +1,11 @@
+{
+  "id": "ansi-us",
+  "name": "US QWERTY",
+  "source": "https://raw.githubusercontent.com/MikyViz/keymap-inspector/main/src/layouts/en.ts",
+  "license": "MIT",
+  "upstream": {
+    "repository": "https://github.com/MikyViz/keymap-inspector",
+    "file": "en.ts",
+    "sha256": "b42a4afe3015543101d1247b26b2146da0b3eb1945f6fbcd40f2919c1d54336c"
+  }
+}

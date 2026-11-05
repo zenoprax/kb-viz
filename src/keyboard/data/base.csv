@@ -1,0 +1,39 @@
+category,action,binding
+Text,Copy,Ctrl+C
+Text,Cut,Ctrl+X
+Text,Paste,Ctrl+V
+Text,Select all,Ctrl+A
+Text,Undo,Ctrl+Z
+Text,Redo,Ctrl+Shift+Z
+Text,Save,Ctrl+S
+Text,Previous word,Ctrl+Left
+Text,Next word,Ctrl+Right
+Text,Delete previous word,Ctrl+Backspace
+Text,Delete next word,Ctrl+Delete
+Text,Start of line,Home
+Text,End of line,End
+Navigation,Find,Ctrl+F
+Navigation,Next tab,Ctrl+Tab
+Navigation,Switch application,Alt+Tab
+Navigation,New tab,Ctrl+T
+Navigation,Close tab,Ctrl+W
+Navigation,Reopen closed tab,Ctrl+Shift+T
+Navigation,Focus address bar,Ctrl+L
+Navigation,Reload page,Ctrl+R
+Navigation,Go back,Alt+Left
+Navigation,Go forward,Alt+Right
+Shell,Beginning of line,Ctrl+A
+Shell,End of line,Ctrl+E
+Shell,Back one character,Ctrl+B
+Shell,Forward one character,Ctrl+F
+Shell,Back one word,Alt+B
+Shell,Forward one word,Alt+F
+Shell,Delete previous word,Ctrl+W
+Shell,Delete to line start,Ctrl+U
+Shell,Delete to line end,Ctrl+K
+Shell,Yank,Ctrl+Y
+Shell,Previous history entry,Ctrl+P
+Shell,Next history entry,Ctrl+N
+Shell,Reverse search history,Ctrl+R
+Shell,Clear screen,Ctrl+L
+Shell,End of input,Ctrl+D

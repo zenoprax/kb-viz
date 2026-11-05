@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self';
+  base-uri 'self'; object-src 'none'; img-src 'self' data:;
+  style-src 'self'; script-src 'self'; connect-src 'self';
+  form-action 'none'">
+<meta name="darkreader-lock">
+<meta name="color-scheme" content="light dark">
+<title>Keymap</title>
+<link rel="stylesheet"
+  href="src/theme/builtin/light.css" data-theme-css="light">
+<link rel="stylesheet" href="src/styles/app.css">
+</head>
+<body>
+<div id="notice" role="status" hidden></div>
+<main>
+  <div id="leftColumn">
+    <header id="keymapIntro">
+      <h1 class="visually-hidden">Keymap shortcut visualizer</h1>
+      <p id="instructions"></p>
+    </header>
+
+    <section class="keymap-controls" aria-label="Keymap and bindings">
+      <div id="keymapControlsBody">
+        <div class="binding-block">
+          <span class="control-label" id="bindingLabel">Bindings</span>
+          <div class="binding-row">
+            <div id="layerSwitch" role="group"
+              aria-labelledby="bindingLabel">
+              <button type="button" data-layer="defaults"
+                aria-pressed="true" aria-label="Default bindings"
+                title="Default bindings">Defaults</button>
+              <button type="button" data-layer="custom"
+                aria-pressed="false" aria-label="Custom bindings"
+                title="Custom bindings" disabled>Custom</button>
+            </div>
+            <button id="importBtn" type="button">
+              Import custom</button>
+            <button id="clearBtn" type="button" disabled
+              title="Clear the uploaded file">Clear</button>
+            <input type="file" id="fileInput" hidden>
+          </div>
+        </div>
+        <div class="keymap-picker">
+          <label for="keymapSelect">Keymap for</label>
+          <select id="keymapSelect"></select>
+        </div>
+        <div class="view-tools" role="group" aria-label="Display">
+          <label class="picker" for="metaSelect">Meta key
+            <select id="metaSelect"></select>
+          </label>
+          <label class="picker" for="themeSelect">Theme
+            <select id="themeSelect"></select>
+          </label>
+          <label class="picker" for="layoutSelect">Layout
+            <select id="layoutSelect"></select>
+          </label>
+        </div>
+      </div>
+      <div class="app-actions">
+        <button id="resetAppBtn" type="button"
+          title="Clear preferences and all uploaded files">Reset app</button>
+      </div>
+      <button id="controlsToggle" type="button"
+        aria-expanded="true" aria-controls="keymapControlsBody">
+        <span id="controlsToggleLabel">Hide controls</span>
+        <span class="controls-toggle-mark" aria-hidden="true"></span>
+      </button>
+    </section>
+
+    <section id="legendBand" aria-label="Legend and filters">
+      <div id="facetGroup">
+        <span class="control-label" id="facetLabel">Filter by</span>
+        <div id="legendSwitch" role="group"
+          aria-labelledby="facetLabel" hidden></div>
+      </div>
+      <div class="legend-center">
+        <div id="legend" role="group"
+          aria-label="Legend values"></div>
+        <button id="clearFiltersBtn" type="button"
+          hidden>Clear filters</button>
+      </div>
+      <label class="picker" id="colourGroup"
+        for="colourSelect">Colour by
+        <select id="colourSelect"></select>
+      </label>
+    </section>
+
+    <section id="board" aria-label="Keyboard map">
+      <svg id="keyboard" xmlns="http://www.w3.org/2000/svg"
+        role="group" aria-label="Binding keys"></svg>
+      <p id="boardNone" hidden>
+        No bindings in this file.</p>
+    </section>
+  </div>
+
+  <aside id="side" aria-label="Bindings">
+    <div class="side-tools">
+      <search aria-label="Filter bindings">
+        <input id="search" type="text"
+          placeholder="Filter by Action" autocomplete="off"
+          spellcheck="false" aria-label="Filter by Action">
+        <button id="searchReset" type="button"
+          aria-label="Clear search text" title="Clear search text"
+          disabled>&times;</button>
+        <input id="bindingSearch" type="text"
+          placeholder="Filter by Binding" autocomplete="off"
+          spellcheck="false" aria-label="Filter by Binding">
+      </search>
+      <div id="keyFilter" role="group"
+        aria-label="Key filter" hidden></div>
+    </div>
+    <div class="list-head" aria-hidden="true">
+      <span>Action</span>
+      <span></span>
+      <span>Binding</span>
+    </div>
+    <ul id="list" aria-label="Bindings"></ul>
+    <p class="visually-hidden" id="resultStatus"
+      aria-live="polite"></p>
+  </aside>
+</main>
+
+<div class="drop-overlay" aria-hidden="true">
+  <span id="dropText">Drop a keymap file to load</span>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
