@@ -1,0 +1,6 @@
+{
+  "id": "ansi-dvorak",
+  "name": "Dvorak",
+  "source": "https://en.wikipedia.org/wiki/Dvorak_keyboard_layout",
+  "license": "Public-domain key mapping"
+}
