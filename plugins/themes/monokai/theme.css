@@ -1,0 +1,39 @@
+/* Monokai theme. Palette from the original Monokai colour scheme. */
+
+:root[data-theme="monokai"] {
+  color-scheme: dark;
+  --font-body: Helvetica, Arial, sans-serif;
+
+  --paper: #272822;
+  --plate: #1e1f1c;
+  --field: #3e3d32;
+  --ink: #f8f8f2;
+  --ink-2: #d6d6c8;
+  --ink-3: #75715e;
+  --rule: #49483e;
+  --rule-soft: #3b3a32;
+  --hover: #34352d;
+  --sel: #49483e;
+  --accent: #f92672;
+  --focus: #66d9ef;
+
+  --key-bound: #49483e;
+  --key-bound-border: #75715e;
+  --key-mod-bound: #1a1b17;
+  --key-mod-bound-border: #49483e;
+  --key-mod-bound-ink: #f8f8f2;
+  --control-border: #75715e;
+  --key-unbound: #30312a;
+  --key-unbound-border: #49483e;
+  --key-unbound-ink: #8d8a7a;
+  --key-bound-count: #a6a394;
+  --key-mod-bound-count: #d6d6c8;
+
+  --accent-1: #fd971f;
+  --accent-2: #66d9ef;
+  --accent-3: #ae81ff;
+  --accent-4: #a6e22e;
+  --accent-5: #f92672;
+  --accent-6: #e6db74;
+  --neutral: #75715e;
+}

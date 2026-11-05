@@ -1,0 +1,39 @@
+/* Dracula theme. Palette from https://draculatheme.com/contribute. */
+
+:root[data-theme="dracula"] {
+  color-scheme: dark;
+  --font-body: Helvetica, Arial, sans-serif;
+
+  --paper: #282a36;
+  --plate: #21222c;
+  --field: #343746;
+  --ink: #f8f8f2;
+  --ink-2: #d7d7e0;
+  --ink-3: #6272a4;
+  --rule: #44475a;
+  --rule-soft: #3a3c4e;
+  --hover: #343746;
+  --sel: #44475a;
+  --accent: #ff79c6;
+  --focus: #8be9fd;
+
+  --key-bound: #44475a;
+  --key-bound-border: #6272a4;
+  --key-mod-bound: #1e1f29;
+  --key-mod-bound-border: #44475a;
+  --key-mod-bound-ink: #f8f8f2;
+  --control-border: #6272a4;
+  --key-unbound: #2f3141;
+  --key-unbound-border: #44475a;
+  --key-unbound-ink: #7b84ad;
+  --key-bound-count: #8b93b8;
+  --key-mod-bound-count: #d7d7e0;
+
+  --accent-1: #ffb86c;
+  --accent-2: #8be9fd;
+  --accent-3: #bd93f9;
+  --accent-4: #50fa7b;
+  --accent-5: #ff79c6;
+  --accent-6: #f1fa8c;
+  --neutral: #6272a4;
+}
